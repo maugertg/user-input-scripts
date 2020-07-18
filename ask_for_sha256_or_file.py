@@ -38,15 +38,14 @@ def validate_file(string):
     return os.path.isfile(string)
 
 def main():
-    # Validate a SHA256 or file was provided
+    ''' Main script logic
+    '''
     try:
         user_input = sys.argv[1]
         input_type = validate_input(user_input)
-
         if not input_type:
             print(f'Provided argument {user_input} is not a valid SHA256 or File.')
             user_input, input_type = ask_for_sha256_or_file()
-
     except IndexError:
         user_input, input_type = ask_for_sha256_or_file()
 
