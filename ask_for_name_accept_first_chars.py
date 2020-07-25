@@ -1,4 +1,6 @@
-def present_group_names(groups):
+def present_group_names(groups, preprint=None, end=""):
+    if preprint:
+        print(preprint, end=end)
     for group in sorted(groups):
         print(group)
 
@@ -16,27 +18,25 @@ def more_than_one_matching_group(result):
 
 
 def get_groups_starting_with(user_input, groups):
-    '''Return list of group names that start with the characters provided
-    '''
+    """Return list of group names that start with the characters provided
+    """
     return [group for group in groups if group.lower().startswith(user_input.lower())]
 
 
 def check_input(user_input, groups, origional_goups):
-    '''Check user input against group names matching on the first characters of the group name
+    """Check user input against group names matching on the first characters of the group name
     If more than one name starts with the characters provided, present a list of matching names
     If no group name starts with the characters provided, present the full list
-    '''
+    """
     user_input = user_input.strip()
     matching_groups = get_groups_starting_with(user_input, groups)
 
     if no_matching_groups(matching_groups):
-        print()
-        present_group_names(origional_goups)
+        present_group_names(origional_goups, "\n")
         return check_input(prompt_for_group_name(), origional_goups, origional_goups)
 
     if more_than_one_matching_group(matching_groups):
-        print()
-        present_group_names(matching_groups)
+        present_group_names(matching_groups, "\n")
         return check_input(prompt_for_group_name(), matching_groups, origional_goups)
 
     return matching_groups[0]
@@ -50,7 +50,7 @@ def main():
         "Server",
         "Triage",
         "Trusted",
-        "Technician"
+        "Technician",
     ]
 
     present_group_names(groups)
